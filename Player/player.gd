@@ -1,0 +1,78 @@
+extends CharacterBody3D
+
+
+const SPEED = 5.0
+const JUMP_VELOCITY = 4.5
+
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _process(delta: float) -> void:
+	_update_camera(delta)
+
+func _unhandled_input(event: InputEvent) -> void:
+	_mouse_moving = event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
+	if _mouse_moving:
+		var mouse_event = event as InputEventMouseMotion
+		_input_yaw = -mouse_event.relative.x * mouse_sensitivity
+		_input_pitch = -mouse_event.relative.y * mouse_sensitivity
+
+func _physics_process(delta: float) -> void:
+	_process_input(delta)
+
+
+func _process_input(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	var input_dir := Input.get_vector("walk_left", "walk_right", "walk_forward", "walk_backward")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+	move_and_slide()
+
+#region Camera
+
+@export var CAMERA_CONTROLLER : Node3D
+@export var CAMERA : Camera3D
+
+const MIN_TILT = deg_to_rad(-90)
+const MAX_TILT = deg_to_rad(90)
+
+var _mouse_moving : bool = false
+var _input_yaw : float
+var _input_pitch : float
+var _mouse_rotation : Vector3
+var _player_rotation : Vector3
+var _camera_rotation : Vector3
+@export var mouse_sensitivity : float = 0.5
+
+var _saved_yaw_input : float
+
+func _update_camera(delta: float) -> void:
+	_saved_yaw_input = _input_yaw
+	_mouse_rotation.x += _input_pitch * delta
+	_mouse_rotation.x = clamp(_mouse_rotation.x, MIN_TILT, MAX_TILT)
+	_mouse_rotation.y += _input_yaw * delta
+	
+	_player_rotation = Vector3(0, _mouse_rotation.y, 0)
+	_camera_rotation = Vector3(_mouse_rotation.x, 0, 0)
+	
+	CAMERA_CONTROLLER.transform.basis = Basis.from_euler(_camera_rotation)
+	CAMERA_CONTROLLER.rotation.z = 0
+	
+	# TODO: revisit
+	global_transform.basis = Basis.from_euler(_player_rotation)
+	
+	_input_pitch = 0
+	_input_yaw = 0
+
+#endregion
