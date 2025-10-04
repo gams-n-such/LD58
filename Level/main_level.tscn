@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckru1mxpxueb2"]
+
+[ext_resource type="PackedScene" uid="uid://bngpxqvfimlib" path="res://Level/static_box_3d.tscn" id="1_7ireg"]
+[ext_resource type="PackedScene" uid="uid://ctxp0xi8dehf3" path="res://Player/player.tscn" id="2_1wy1g"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1wy1g"]
+
+[node name="MainLevel" type="Node"]
+
+[node name="StaticBox3D" parent="." instance=ExtResource("1_7ireg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+collision_layer = 0
+collision_mask = 0
+size = Vector3(100, 1, 100)
+color = Color(0.64, 0.64, 0.64, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_1wy1g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6056767, 0, 7.455784)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.70524085, 0.7089678, 0, -0.7089678, 0.70524085, 0, 15.941246, 0)
+sky_mode = 1
+
+[node name="Ground" type="StaticBody3D" parent="."]
+collision_mask = 11
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape3D_1wy1g")
