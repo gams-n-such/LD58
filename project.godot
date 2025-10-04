@@ -19,12 +19,19 @@ config/name="LD58"
 config/tags=PackedStringArray("jams")
 run/main_scene="uid://ckru1mxpxueb2"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/bg_color=Color(0.062079992, 0.0512, 0.16, 1)
 config/icon="res://icon.svg"
 
 [autoload]
 
 Game="*res://Game/game.tscn"
 
+[display]
+
+window/size/viewport_width=1982
+window/size/viewport_height=1080
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 
