@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnhdm5dv5yfse"]
+
+[ext_resource type="Theme" uid="uid://dpdv00u7u0v7t" path="res://UI/theme_title.tres" id="1_ahirg"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0eevr"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ahirg")
+
+[node name="Creator" type="Label" parent="."]
+layout_mode = 0
+offset_left = 155.0
+offset_top = 153.0
+offset_right = 566.0
+offset_bottom = 186.0
+text = "Put together by Manlok"
+
+[node name="Assets" type="Label" parent="."]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 278.0
+offset_right = 339.0
+offset_bottom = 347.0
+text = "Using:
+"
+
+[node name="ReturnButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1196.0
+offset_top = 716.0
+offset_right = 1888.0
+offset_bottom = 1009.0
+text = "Return"
+icon = SubResource("PlaceholderTexture2D_0eevr")

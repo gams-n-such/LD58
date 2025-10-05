@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://de6kkil3ff8au"]
+
+[ext_resource type="Theme" uid="uid://dpdv00u7u0v7t" path="res://UI/theme_title.tres" id="1_cr81p"]
+[ext_resource type="Script" uid="uid://blri13fi4pvig" path="res://Title/title_screen.gd" id="1_j3iy2"]
+[ext_resource type="PackedScene" uid="uid://bnhdm5dv5yfse" path="res://Title/credits.tscn" id="3_rcivy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcivy"]
+bg_color = Color(0, 0.04, 0.01, 1)
+
+[node name="TitleScreen" type="Node"]
+script = ExtResource("1_j3iy2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_cr81p")
+
+[node name="Background" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcivy")
+
+[node name="Credits" parent="CanvasLayer/Control" instance=ExtResource("3_rcivy")]
+layout_mode = 1
+
+[node name="Curtain" type="Panel" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcivy")
+
+[editable path="CanvasLayer/Control/Credits"]
