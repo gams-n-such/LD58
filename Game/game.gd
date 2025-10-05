@@ -18,3 +18,23 @@ func restart(from_title : bool = true) -> void:
 
 func exit() -> void:
 	get_tree().quit()
+
+#region Ambience
+
+@onready var MAIN_AMBIENCE := %MainAmbience
+@onready var MAIN_AMBIENCE_FADER := %AmbienceFades
+
+func set_main_ambience_playing(play : bool, fade_time : float = 1.0) -> void:
+	if play == MAIN_AMBIENCE.playing:
+		return
+	var fade_speed : float = 1.0 / fade_time if fade_time > 0.0 else 100.0
+	if play:
+		MAIN_AMBIENCE_FADER.play("main_ambience_fade_in", -1, fade_speed)
+		MAIN_AMBIENCE.playing = true
+		await MAIN_AMBIENCE_FADER.animation_finished
+	else:
+		MAIN_AMBIENCE_FADER.play("main_ambience_fade_in", -1, -fade_speed, true)
+		await MAIN_AMBIENCE_FADER.animation_finished
+		MAIN_AMBIENCE.playing = false
+
+#endregion

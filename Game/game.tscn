@@ -1,9 +1,56 @@
-[gd_scene load_steps=3 format=3 uid="uid://djewefgqwj8oy"]
+[gd_scene load_steps=7 format=3 uid="uid://djewefgqwj8oy"]
 
 [ext_resource type="Script" uid="uid://bw8btqv0c1qdv" path="res://Game/game.gd" id="1_bk3v5"]
 [ext_resource type="PackedScene" uid="uid://ckru1mxpxueb2" path="res://Level/main_level.tscn" id="2_1r4le"]
+[ext_resource type="AudioStream" uid="uid://dew14nurjjgmj" path="res://Game/ambience_cave.ogg" id="3_7raqb"]
+
+[sub_resource type="Animation" id="Animation_jcm6v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainAmbience:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fwxkx"]
+resource_name = "main_ambience_fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainAmbience:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-80.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qmv3x"]
+_data = {
+&"RESET": SubResource("Animation_jcm6v"),
+&"main_ambience_fade_in": SubResource("Animation_fwxkx")
+}
 
 [node name="Game" type="Node"]
 process_mode = 3
 script = ExtResource("1_bk3v5")
 gameplay_scene = ExtResource("2_1r4le")
+
+[node name="MainAmbience" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_7raqb")
+
+[node name="AmbienceFades" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_qmv3x")
+}
