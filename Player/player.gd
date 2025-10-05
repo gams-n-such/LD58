@@ -1,3 +1,4 @@
+class_name PlayerCharacter
 extends CharacterBody3D
 
 
@@ -48,10 +49,12 @@ func _process_input(delta: float) -> void:
 
 @export var INTERACTION_PROBE : RayCast3D
 
+@onready var HOLD_ANCHOR: Node3D = %HoldAnchor
+
 var held_item : Node3D:
 	get:
-		if %HoldAnchor.get_child_count() > 0:
-			return %HoldAnchor.get_child(0)
+		if HOLD_ANCHOR.get_child_count() > 0:
+			return HOLD_ANCHOR.get_child(0)
 		else:
 			return null
 
@@ -67,18 +70,11 @@ func find_interaction_target() -> Node3D:
 	return null
 
 func interact() -> void:
-	if held_item:
-		place_item()
-		# TODO: shrines
-		return
 	var target := find_interaction_target()
-	if target:
-		var treasure := target as Treasure
-		if not treasure:
-			# FIXME: find by type
-			treasure = target.find_parent("Treasure") as Treasure
-		if treasure and not is_holding_item():
-			hold_item(treasure)
+	if target and target.has_method("interact"):
+		target.interact(self)
+	elif is_holding_item():
+		place_item()
 
 func is_holding_item() -> bool:
 	return held_item != null
@@ -94,10 +90,13 @@ func hold_item(item : Node3D) -> void:
 	if item is Treasure:
 		item.process_mode = Node.PROCESS_MODE_DISABLED
 
-func place_item() -> Node3D:
+func place_item(new_root : Node3D = null) -> Node3D:
 	assert(is_holding_item())
 	var previously_held := held_item
-	held_item.reparent(get_tree().root, true)
+	if new_root:
+		previously_held.reparent(new_root, false)
+	else:
+		previously_held.reparent(get_tree().root, true)
 	previously_held.rotation = Vector3.ZERO
 	previously_held.scale = Vector3.ONE
 	if previously_held is Treasure:

@@ -20,3 +20,7 @@ func update_visuals() -> void:
 	if not is_node_ready():
 		await ready
 	MESH.mesh = resource.mesh
+
+func interact(player : PlayerCharacter) -> void:
+	if not player.is_holding_item():
+		player.hold_item(self)
