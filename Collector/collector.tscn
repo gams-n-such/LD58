@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpvrkuegipfw7"]
+
+[ext_resource type="ArrayMesh" uid="uid://ircvhoa0odp6" path="res://Collector/hand.obj" id="1_bxu8j"]
+[ext_resource type="Script" uid="uid://dknip0ui68itx" path="res://Collector/collector.gd" id="1_dwx45"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dwx45"]
+albedo_color = Color(0.27058825, 0.07058824, 0.03137255, 1)
+
+[node name="Collector" type="Node3D"]
+script = ExtResource("1_dwx45")
+
+[node name="HandRoot" type="Node3D" parent="."]
+
+[node name="HandPivot" type="Node3D" parent="HandRoot"]
+transform = Transform3D(4.9999995, -2.1855696e-07, 8.6602545, -8.6602545, -3.7855173e-07, 4.9999995, 2.1855696e-07, -10, -3.7855173e-07, 0, 0, 0)
+
+[node name="HandMesh" type="MeshInstance3D" parent="HandRoot/HandPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45338726, -1.69942, 0.4312694)
+mesh = ExtResource("1_bxu8j")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_dwx45")
