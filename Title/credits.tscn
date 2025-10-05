@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnhdm5dv5yfse"]
+[gd_scene load_steps=2 format=3 uid="uid://bnhdm5dv5yfse"]
 
 [ext_resource type="Theme" uid="uid://dpdv00u7u0v7t" path="res://UI/theme_title.tres" id="1_ahirg"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0eevr"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -29,12 +27,3 @@ offset_right = 339.0
 offset_bottom = 347.0
 text = "Using:
 "
-
-[node name="ReturnButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1196.0
-offset_top = 716.0
-offset_right = 1888.0
-offset_bottom = 1009.0
-text = "Return"
-icon = SubResource("PlaceholderTexture2D_0eevr")
