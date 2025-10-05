@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnjv507p11wgi"]
+
+[ext_resource type="Script" uid="uid://33h8oryu3urd" path="res://Items/treasure.gd" id="1_b6hbl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_obq82"]
+
+[node name="Treasure" type="Area3D" groups=["Treasure"]]
+collision_layer = 24
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_b6hbl")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_obq82")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
