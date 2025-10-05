@@ -1,6 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://t5fxyuyah23g"]
+[gd_scene load_steps=6 format=3 uid="uid://t5fxyuyah23g"]
 
 [ext_resource type="Script" uid="uid://befy1loe7553a" path="res://Title/curtain.gd" id="1_e3yk1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3yk1"]
+bg_color = Color(0, 0.039215688, 0.011764706, 1)
 
 [sub_resource type="Animation" id="Animation_e3yk1"]
 resource_name = "fade_in"
@@ -39,6 +42,7 @@ _data = {
 }
 
 [node name="Curtain" type="Panel"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_e3yk1")
 script = ExtResource("1_e3yk1")
 
 [node name="Fader" type="AnimationPlayer" parent="."]
