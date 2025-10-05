@@ -55,16 +55,30 @@ var held_item : Node3D:
 		else:
 			return null
 
-func interact() -> void:
+var held_treasure : Treasure:
+	get:
+		return held_item as Treasure
+
+func find_interaction_target() -> Node3D:
 	if INTERACTION_PROBE.is_colliding():
 		var collider = INTERACTION_PROBE.get_collider()
 		if collider is Node3D:
+			return collider
+	return null
+
+func interact() -> void:
+	if held_item:
+		place_item()
+		# TODO: shrines
+		return
+	var target := find_interaction_target()
+	if target:
+		var treasure := target as Treasure
+		if not treasure:
 			# FIXME: find by type
-			var treasure := collider as Treasure
-			if not treasure:
-				treasure = collider.find_parent("Treasure") as Treasure
-			if treasure and not is_holding_item():
-				hold_item(treasure)
+			treasure = target.find_parent("Treasure") as Treasure
+		if treasure and not is_holding_item():
+			hold_item(treasure)
 
 func is_holding_item() -> bool:
 	return held_item != null
@@ -73,14 +87,21 @@ func hold_item(item : Node3D) -> void:
 	if not item:
 		return
 	if is_holding_item():
-		release_item()
+		place_item()
 	item.reparent(%HoldAnchor, false)
 	item.position = Vector3.ZERO
+	item.scale = Vector3.ONE
+	if item is Treasure:
+		item.process_mode = Node.PROCESS_MODE_DISABLED
 
-func release_item() -> Node3D:
+func place_item() -> Node3D:
 	assert(is_holding_item())
 	var previously_held := held_item
 	held_item.reparent(get_tree().root, true)
+	previously_held.rotation = Vector3.ZERO
+	previously_held.scale = Vector3.ONE
+	if previously_held is Treasure:
+		previously_held.process_mode = Node.PROCESS_MODE_INHERIT
 	return previously_held
 
 #endregion
