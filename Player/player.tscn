@@ -6,9 +6,10 @@
 radius = 0.4
 height = 1.8
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("CAMERA_CONTROLLER", "CAMERA")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("INTERACTION_PROBE", "CAMERA_CONTROLLER", "CAMERA") groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_l8h54")
+INTERACTION_PROBE = NodePath("CameraRoot/Camera/InteractionRay")
 CAMERA_CONTROLLER = NodePath("CameraRoot")
 CAMERA = NodePath("CameraRoot/Camera")
 
@@ -24,5 +25,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 unique_name_in_owner = true
 current = true
 
-[node name="HoldAnchor" type="Node3D" parent="."]
+[node name="InteractionRay" type="RayCast3D" parent="CameraRoot/Camera"]
 unique_name_in_owner = true
+target_position = Vector3(0, 0, -1)
+collision_mask = 16
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="HoldAnchor" type="Node3D" parent="CameraRoot/Camera"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -0.5)

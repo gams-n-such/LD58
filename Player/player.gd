@@ -10,6 +10,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_update_camera(delta)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("interact"):
+		interact()
+
 func _unhandled_input(event: InputEvent) -> void:
 	_mouse_moving = event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
 	if _mouse_moving:
@@ -38,6 +42,49 @@ func _process_input(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+#region Items
+
+@export var INTERACTION_PROBE : RayCast3D
+
+var held_item : Node3D:
+	get:
+		if %HoldAnchor.get_child_count() > 0:
+			return %HoldAnchor.get_child(0)
+		else:
+			return null
+
+func interact() -> void:
+	if INTERACTION_PROBE.is_colliding():
+		var collider = INTERACTION_PROBE.get_collider()
+		if collider is Node3D:
+			# FIXME: find by type
+			var treasure := collider as Treasure
+			if not treasure:
+				treasure = collider.find_parent("Treasure") as Treasure
+			if treasure and not is_holding_item():
+				hold_item(treasure)
+
+func is_holding_item() -> bool:
+	return held_item != null
+
+func hold_item(item : Node3D) -> void:
+	if not item:
+		return
+	if is_holding_item():
+		release_item()
+	item.reparent(%HoldAnchor, false)
+	item.position = Vector3.ZERO
+
+func release_item() -> Node3D:
+	assert(is_holding_item())
+	var previously_held := held_item
+	held_item.reparent(get_tree().root, true)
+	return previously_held
+
+#endregion
+
 
 #region Camera
 
