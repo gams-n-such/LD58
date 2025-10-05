@@ -1,6 +1,7 @@
 extends Node
 
 @export var title_scene : PackedScene
+@export var intro_scene : PackedScene
 @export var gameplay_scene : PackedScene
 
 
@@ -12,6 +13,9 @@ func _input(event: InputEvent) -> void:
 		exit()
 	if event.is_action_pressed("pause"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_CAPTURED
+
+func start_intro() -> void:
+	get_tree().change_scene_to_packed(intro_scene)
 
 func restart(from_title : bool = true) -> void:
 	get_tree().change_scene_to_packed(title_scene if from_title else gameplay_scene)

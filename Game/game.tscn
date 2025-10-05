@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://djewefgqwj8oy"]
+[gd_scene load_steps=9 format=3 uid="uid://djewefgqwj8oy"]
 
 [ext_resource type="Script" uid="uid://bw8btqv0c1qdv" path="res://Game/game.gd" id="1_bk3v5"]
 [ext_resource type="PackedScene" uid="uid://ckru1mxpxueb2" path="res://Level/main_level.tscn" id="2_1r4le"]
+[ext_resource type="PackedScene" uid="uid://de6kkil3ff8au" path="res://Title/title_screen.tscn" id="2_fwxkx"]
 [ext_resource type="AudioStream" uid="uid://dew14nurjjgmj" path="res://Game/ambience_cave.ogg" id="3_7raqb"]
+[ext_resource type="PackedScene" uid="uid://dy7vp70er87lg" path="res://Intro/intro.tscn" id="3_qmv3x"]
 
 [sub_resource type="Animation" id="Animation_jcm6v"]
 length = 0.001
@@ -43,6 +45,8 @@ _data = {
 [node name="Game" type="Node"]
 process_mode = 3
 script = ExtResource("1_bk3v5")
+title_scene = ExtResource("2_fwxkx")
+intro_scene = ExtResource("3_qmv3x")
 gameplay_scene = ExtResource("2_1r4le")
 
 [node name="MainAmbience" type="AudioStreamPlayer" parent="."]
