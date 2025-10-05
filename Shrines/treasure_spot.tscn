@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://b86na5f6dvcoc"]
+
+[ext_resource type="Script" uid="uid://ckg3yv80g3fwv" path="res://Shrines/treasure_spot.gd" id="1_637e7"]
+[ext_resource type="Shader" uid="uid://dv52n37qernsk" path="res://Shrines/treasure_spot_shader.tres" id="2_637e7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n8qt5"]
+radius = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mf8ed"]
+render_priority = 0
+shader = ExtResource("2_637e7")
+
+[sub_resource type="SphereMesh" id="SphereMesh_bc1uo"]
+material = SubResource("ShaderMaterial_mf8ed")
+flip_faces = true
+radius = 0.4
+height = 0.8
+
+[node name="TreasureSpot" type="Area3D"]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_637e7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_n8qt5")
+
+[node name="Glow" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_bc1uo")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="TreasureRoot" type="Node3D" parent="."]
+unique_name_in_owner = true

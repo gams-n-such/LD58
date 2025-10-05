@@ -1,0 +1,63 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://dv52n37qernsk"]
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_ievrn"]
+function = 31
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_t8g3i"]
+constant = Color(0.31, 0.6090001, 1, 1)
+
+[sub_resource type="VisualShaderNodeFresnel" id="VisualShaderNodeFresnel_nhiwy"]
+default_input_values = [2, false, 3, 0.5]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_xhdhq"]
+default_input_values = [0, 0.0, 1, 0.3]
+operator = 2
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_add, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded, shadows_disabled, ambient_light_disabled;
+
+
+
+
+void fragment() {
+// ColorConstant:4
+	vec4 n_out4p0 = vec4(0.310000, 0.609000, 1.000000, 1.000000);
+
+
+// Fresnel:6
+	float n_in6p3 = 0.50000;
+	float n_out6p0 = pow(1.0 - clamp(dot(NORMAL, VIEW), 0.0, 1.0), n_in6p3);
+
+
+// FloatFunc:3
+	float n_out3p0 = 1.0 - n_out6p0;
+
+
+// FloatOp:7
+	float n_in7p1 = 0.30000;
+	float n_out7p0 = n_out3p0 * n_in7p1;
+
+
+// Output:0
+	ALBEDO = vec3(n_out4p0.xyz);
+	ALPHA = n_out7p0;
+
+
+}
+"
+modes/blend = 1
+flags/unshaded = true
+flags/shadows_disabled = true
+flags/ambient_light_disabled = true
+nodes/vertex/0/position = Vector2(680, 80)
+nodes/fragment/0/position = Vector2(520, 340)
+nodes/fragment/3/node = SubResource("VisualShaderNodeFloatFunc_ievrn")
+nodes/fragment/3/position = Vector2(0, 440)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorConstant_t8g3i")
+nodes/fragment/4/position = Vector2(-280, 340)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFresnel_nhiwy")
+nodes/fragment/6/position = Vector2(-280, 440)
+nodes/fragment/7/node = SubResource("VisualShaderNodeFloatOp_xhdhq")
+nodes/fragment/7/position = Vector2(240, 440)
+nodes/fragment/connections = PackedInt32Array(6, 0, 3, 0, 4, 0, 0, 0, 3, 0, 7, 0, 7, 0, 0, 1)
