@@ -6,6 +6,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 func _ready() -> void:
+	Game.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(delta: float) -> void:

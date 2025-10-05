@@ -1,3 +1,4 @@
+class_name Clock
 extends Node3D
 
 @onready var TIMER := %TickTimer
@@ -6,6 +7,7 @@ extends Node3D
 signal tick
 
 func _ready() -> void:
+	Game.clock = self
 	if autostart:
 		start()
 

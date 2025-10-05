@@ -3,6 +3,11 @@ extends Node
 @export var title_scene : PackedScene
 @export var intro_scene : PackedScene
 @export var gameplay_scene : PackedScene
+@export var pause_scene : PackedScene
+
+
+var player : PlayerCharacter = null
+var clock : Clock = null
 
 
 func _ready() -> void:
