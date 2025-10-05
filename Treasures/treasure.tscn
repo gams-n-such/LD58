@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bnjv507p11wgi"]
 
-[ext_resource type="Script" uid="uid://33h8oryu3urd" path="res://Items/treasure.gd" id="1_b6hbl"]
+[ext_resource type="Script" uid="uid://33h8oryu3urd" path="res://Treasures/treasure.gd" id="1_b6hbl"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_obq82"]
 

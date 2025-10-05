@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TreasureResource" load_steps=3 format=3 uid="uid://cgcrpfrfftvph"]
 
-[ext_resource type="Script" uid="uid://0wwskc0h14ag" path="res://Items/treasure_resource.gd" id="1_i3q3e"]
+[ext_resource type="Script" uid="uid://0wwskc0h14ag" path="res://Treasures/treasure_resource.gd" id="1_i3q3e"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_i3q3e"]
 size = Vector3(0.5, 0.5, 0.5)
