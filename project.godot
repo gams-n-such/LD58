@@ -17,7 +17,7 @@ instance_dock/preview_resolution=Vector2i(64, 64)
 
 config/name="LD58"
 config/tags=PackedStringArray("jams")
-run/main_scene="uid://ckru1mxpxueb2"
+run/main_scene="uid://de6kkil3ff8au"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 boot_splash/bg_color=Color(0.062079992, 0.0512, 0.16, 1)
 config/icon="res://icon.svg"
