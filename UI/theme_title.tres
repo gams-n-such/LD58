@@ -1,15 +1,23 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dpdv00u7u0v7t"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dpdv00u7u0v7t"]
 
 [ext_resource type="FontFile" uid="uid://b4f0f4thguc6f" path="res://UI/RomanAntique.ttf" id="1_d02sw"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6rye"]
+bg_color = Color(0.4591807, 0.42433056, 0.3510882, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d02sw"]
 bg_color = Color(0.59, 0.5487, 0.46609998, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0w0mi"]
+bg_color = Color(0.30075514, 0.2751519, 0.22131234, 1)
 
 [resource]
 Button/constants/outline_size = 4
 Button/font_sizes/font_size = 64
 Button/fonts/font = ExtResource("1_d02sw")
+Button/styles/hover = SubResource("StyleBoxFlat_j6rye")
 Button/styles/normal = SubResource("StyleBoxFlat_d02sw")
+Button/styles/pressed = SubResource("StyleBoxFlat_0w0mi")
 Label/constants/outline_size = 8
 Label/font_sizes/font_size = 64
 Label/fonts/font = ExtResource("1_d02sw")
