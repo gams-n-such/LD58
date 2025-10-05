@@ -1,6 +1,7 @@
 extends Node
 
 @onready var CURTAIN : Curtain = %Curtain
+@onready var MAIN_LEVEL: Node = %MainLevel
 
 
 func _ready() -> void:
@@ -9,8 +10,9 @@ func _ready() -> void:
 	await %IntroAnim.animation_finished
 	await CURTAIN.fade_in(3)
 	%Intro.visible = false
-	%MainLevel.process_mode = Node.PROCESS_MODE_INHERIT
+	process_mode = Node.PROCESS_MODE_DISABLED
+	MAIN_LEVEL.reparent(get_tree().root)
+	get_tree().current_scene = MAIN_LEVEL
+	MAIN_LEVEL.process_mode = Node.PROCESS_MODE_INHERIT
 	await CURTAIN.fade_out(3)
-	%MainLevel.reparent(get_tree().root)
-	get_tree().current_scene = %MainLevel
 	queue_free()
