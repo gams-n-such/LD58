@@ -19,7 +19,7 @@ stream_1/stream = ExtResource("3_lxafl")
 [node name="Clock" type="Node3D" groups=["Clock"]]
 script = ExtResource("1_pg21k")
 
-[node name="TickingSound3D" type="AudioStreamPlayer3D" parent="." groups=["Clock"]]
+[node name="TickingSound3D" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_fbd6t")
 
