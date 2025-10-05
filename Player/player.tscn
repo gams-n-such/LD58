@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctxp0xi8dehf3"]
+[gd_scene load_steps=6 format=3 uid="uid://ctxp0xi8dehf3"]
 
 [ext_resource type="Script" uid="uid://dyx5we6vw681v" path="res://Player/player.gd" id="1_l8h54"]
 [ext_resource type="Shader" uid="uid://dy8rfnkyrrm1" path="res://Player/crosshairs.gdshader" id="2_4ntmi"]
@@ -6,6 +6,13 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
 radius = 0.4
 height = 1.8
+
+[sub_resource type="Environment" id="Environment_4ntmi"]
+background_mode = 1
+ambient_light_color = Color(0, 0, 0.06666667, 1)
+fog_mode = 1
+fog_light_color = Color(0.3680334, 0.39962435, 0.44877356, 1)
+fog_density = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_btcbx"]
 shader = ExtResource("2_4ntmi")
@@ -27,6 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera" type="Camera3D" parent="CameraRoot"]
 unique_name_in_owner = true
+environment = SubResource("Environment_4ntmi")
 current = true
 
 [node name="InteractionRay" type="RayCast3D" parent="CameraRoot/Camera"]
