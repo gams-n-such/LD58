@@ -1,47 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://de6kkil3ff8au"]
+[gd_scene load_steps=6 format=3 uid="uid://de6kkil3ff8au"]
 
 [ext_resource type="Theme" uid="uid://dpdv00u7u0v7t" path="res://UI/theme_title.tres" id="1_cr81p"]
 [ext_resource type="Script" uid="uid://blri13fi4pvig" path="res://Title/title_screen.gd" id="1_j3iy2"]
 [ext_resource type="PackedScene" uid="uid://bnhdm5dv5yfse" path="res://Title/credits.tscn" id="3_rcivy"]
+[ext_resource type="PackedScene" uid="uid://t5fxyuyah23g" path="res://Title/curtain.tscn" id="4_rov6i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcivy"]
 bg_color = Color(0, 0.04, 0.01, 1)
-
-[sub_resource type="Animation" id="Animation_rcivy"]
-resource_name = "curtain_fade_in"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Curtain:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_rov6i"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("%Curtain:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lcr6r"]
-_data = {
-&"RESET": SubResource("Animation_rov6i"),
-&"curtain_fade_in": SubResource("Animation_rcivy")
-}
 
 [node name="TitleScreen" type="Node"]
 script = ExtResource("1_j3iy2")
@@ -127,9 +92,8 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "Return"
 
-[node name="Curtain" type="Panel" parent="CanvasLayer/Control"]
+[node name="Curtain" parent="CanvasLayer/Control" instance=ExtResource("4_rov6i")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,12 +101,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rcivy")
-
-[node name="CurtainFader" type="AnimationPlayer" parent="CanvasLayer/Control"]
-unique_name_in_owner = true
-libraries = {
-&"": SubResource("AnimationLibrary_lcr6r")
-}
 
 [connection signal="pressed" from="CanvasLayer/Control/MainMenu/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/MainMenu/CreditsButton" to="." method="_on_credits_button_pressed"]
