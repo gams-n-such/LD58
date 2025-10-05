@@ -166,7 +166,7 @@ theme_override_constants/separation = 80
 
 [node name="Label1" type="Label" parent="CanvasLayer/Control/Intro/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "Average human lifespan is,"
+text = "On average, human life expectancy is,"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/Control/Intro/CenterContainer/VBoxContainer"]
