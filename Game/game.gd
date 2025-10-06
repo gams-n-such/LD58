@@ -6,8 +6,19 @@ extends Node
 @export var pause_scene : PackedScene
 
 
+signal tick(time_since_last_tick : float, time_to_next_tick : float)
+
 var player : PlayerCharacter = null
-var clock : Clock = null
+var collector : Collector = null
+var clock : Clock:
+	get:
+		return clock
+	set(new_clock):
+		if clock:
+			clock.tick.disconnect(_on_clock_tick)
+		clock = new_clock
+		if clock:
+			clock.tick.connect(_on_clock_tick)
 
 
 func _ready() -> void:
@@ -27,6 +38,9 @@ func restart(from_title : bool = true) -> void:
 
 func exit() -> void:
 	get_tree().quit()
+
+func _on_clock_tick(time_since_last_tick : float, time_to_next_tick : float) -> void:
+	tick.emit(time_since_last_tick, time_to_next_tick)
 
 #region Ambience
 
