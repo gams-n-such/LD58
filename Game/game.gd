@@ -39,8 +39,12 @@ func restart(from_title : bool = true) -> void:
 func exit() -> void:
 	get_tree().quit()
 
+#region Game Flow
+
 func _on_clock_tick(time_since_last_tick : float, time_to_next_tick : float) -> void:
 	tick.emit(time_since_last_tick, time_to_next_tick)
+
+#endregion
 
 #region Ambience
 
@@ -60,4 +64,19 @@ func set_main_ambience_playing(play : bool, fade_time : float = 1.0) -> void:
 		await MAIN_AMBIENCE_FADER.animation_finished
 		MAIN_AMBIENCE.playing = false
 
+#endregion
+
+#region Utils
+
+func get_player_held_item() -> Node3D:
+	if player:
+		return player.held_item
+	else:
+		return null
+
+func get_remaining_treasures() -> Array[Treasure]:
+	var result : Array[Treasure]
+	result.assign(get_tree().get_nodes_in_group("Treasure"))
+	return result
+	
 #endregion
