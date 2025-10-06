@@ -99,6 +99,11 @@ sprint={
 
 [layer_names]
 
+3d_render/layer_1="World"
+3d_render/layer_2="Shrines"
+3d_render/layer_3="Treasure"
+3d_render/layer_4="Collector"
+3d_render/layer_5="Decorations"
 3d_physics/layer_1="World"
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Collector"
