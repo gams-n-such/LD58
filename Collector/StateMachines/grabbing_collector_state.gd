@@ -18,6 +18,7 @@ func enter(prev_state : State) -> void:
 	if not collector.is_target_held():
 		collector.current_target.taken.connect(_on_player_grabbed_target)
 	else:
+		await get_tree().create_timer(0.1).timeout
 		request_transition("RetreatingCollectorState")
 
 func exit(next_state : State) -> void:

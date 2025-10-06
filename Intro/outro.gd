@@ -4,6 +4,7 @@ signal finished
 
 func _ready() -> void:
 	Game.can_pause = false
+	Game.set_main_ambience_playing(true)
 	var outro_tween := get_tree().create_tween()
 	outro_tween.tween_property(%Root, "self_modulate", Color.WHITE, 3.0)
 	await outro_tween.finished

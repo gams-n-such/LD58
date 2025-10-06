@@ -36,4 +36,17 @@ func get_remaining_treasure(include_player_held : bool = false) -> Array[Treasur
 		result.erase(get_player_held_item())
 	return result
 
+func get_remaining_shrines(empty : bool) -> Array[Shrine]:
+	var result : Array[Shrine]
+	var all_shrines := get_tree().get_nodes_in_group("Shrines")
+	for node in all_shrines:
+		if node and not node.is_queued_for_deletion() and node is Shrine:
+			var shrine := node as Shrine
+			if shrine.active and shrine.has_item() == not empty:
+				result.append(node as Shrine)
+	return result
+
+func get_random_empty_shrine() -> Shrine:
+	return get_remaining_shrines(true).pick_random()
+
 #endregion

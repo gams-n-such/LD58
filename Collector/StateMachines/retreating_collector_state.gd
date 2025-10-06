@@ -9,6 +9,10 @@ func _ready() -> void:
 func enter(prev_state : State) -> void:
 	super.enter(prev_state)
 	assert(collector.current_target)
+	if collector.current_target and collector.current_target.get_parent_node_3d() == collector:
+		var shrine := collector.get_random_empty_shrine()
+		if shrine:
+			shrine.destroy()
 	var next_point := collector.global_position
 	next_point.y = collector.height
 	var distance := (next_point - collector.global_position).length()
@@ -18,7 +22,7 @@ func enter(prev_state : State) -> void:
 	request_transition("WaitingCollectorState")
 
 func exit(next_state : State) -> void:
-	if collector.current_target and  collector.current_target.get_parent_node_3d() == collector:
+	if collector.current_target and collector.current_target.get_parent_node_3d() == collector:
 		collector.current_target.queue_free()
 		var treasure := collector.get_remaining_treasure(true)
 		if treasure.is_empty():

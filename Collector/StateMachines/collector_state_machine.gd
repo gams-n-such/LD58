@@ -12,4 +12,3 @@ func _ready() -> void:
 func _on_global_tick(time_since_last_tick : float, time_to_next_tick : float) -> void:
 	if current_state is CollectorState:
 		(current_state as CollectorState).tick(time_since_last_tick, time_to_next_tick)
-		print(current_state.name)

@@ -12,6 +12,7 @@ func enter(prev_state : State) -> void:
 	collector.global_position.y = collector.height
 	collector.aim_spotlight.visible = true
 	if collector.is_target_held() or not collector.current_target:
+		await get_tree().create_timer(0.1).timeout
 		request_transition("FinalCollectorState")
 	else:
 		collector.current_target.taken.connect(_on_player_grabbed_target)

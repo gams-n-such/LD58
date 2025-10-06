@@ -6,6 +6,9 @@ func _ready() -> void:
 
 func enter(prev_state : State) -> void:
 	super.enter(prev_state)
+	Game.set_main_ambience_playing(false)
+	for shrine in get_tree().get_nodes_in_group("Shrines"):
+		(shrine as Shrine).destroy(3)
 	Game.clock.stop()
 	Game.player.camera_lock_x = true
 	Game.player.movement_lock = true
@@ -23,7 +26,7 @@ func enter(prev_state : State) -> void:
 	tween.tween_property(collector, "position", final_offset, 5)
 	await collector.treasure_spot.item_changed
 	Game.player.interact_lock = true
-	Game.game_over.emit(true)
+	Game.win()
 
 func exit(next_state : State) -> void:
 	super.exit(next_state)

@@ -6,6 +6,7 @@ func _ready() -> void:
 
 func enter(prev_state : State) -> void:
 	super.enter(prev_state)
+	collector.global_rotation = Vector3.ZERO
 	collector.current_target = pick_random_treasure()
 	collector.aim_spotlight.visible = true
 
