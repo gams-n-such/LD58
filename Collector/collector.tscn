@@ -71,6 +71,7 @@ _data = {
 script = ExtResource("1_dwx45")
 
 [node name="CollectorStateMachine" type="Node" parent="." node_paths=PackedStringArray("INITIAL_STATE")]
+unique_name_in_owner = true
 script = ExtResource("2_y6y4v")
 INITIAL_STATE = NodePath("StartDelayCollectorState")
 metadata/_custom_type_script = "uid://cmo5n6t4g2sel"

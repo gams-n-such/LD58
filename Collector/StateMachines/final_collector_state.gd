@@ -6,6 +6,16 @@ func _ready() -> void:
 
 func enter(prev_state : State) -> void:
 	super.enter(prev_state)
+	Game.player.camera_lock_x = true
+	Game.player.movement_lock = true
+	collector.animation_player.play("final")
+	collector.aim_spotlight.visible = false
+	collector.treasure_spot.active = true
+	collector.reparent(Game.player)
+	collector.position = Vector3.FORWARD * 10.0
+	collector.rotation_degrees = Vector3(0.0, 180, 0.0)
+	var tween := get_tree().create_tween()
+	tween.tween_property(collector, "position", Vector3.FORWARD * 2.0, 5)
 
 func exit(next_state : State) -> void:
 	super.exit(next_state)

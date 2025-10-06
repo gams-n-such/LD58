@@ -8,9 +8,11 @@ extends Node
 @export var first_item : Treasure
 
 func _ready() -> void:
+	PLAYER.camera_lock_x = true
 	await first_item.taken
 	first_shrine.erect()
 	await first_shrine.item_changed
+	PLAYER.camera_lock_x = false
 	await get_tree().create_timer(1).timeout
 	for shrine in get_tree().get_nodes_in_group("Shrines"):
 		(shrine as Shrine).erect(3)
@@ -18,3 +20,7 @@ func _ready() -> void:
 	treasures_tween.tween_property(%TreasuresRoot, "global_position", Vector3.UP * 0.8, 3)
 	await treasures_tween.finished
 	CLOCK.start()
+	while COLLECTOR.state_machine.current_state.name != "FinalCollectorState":
+		await COLLECTOR.state_machine.state_changed
+	await COLLECTOR.treasure_spot.item_changed
+	Game.exit()
