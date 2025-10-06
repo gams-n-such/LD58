@@ -11,8 +11,9 @@ func _ready() -> void:
 	await first_item.taken
 	first_shrine.erect()
 	await first_shrine.item_changed
+	await get_tree().create_timer(1).timeout
 	for shrine in get_tree().get_nodes_in_group("Shrines"):
-		(shrine as Shrine).erect()
+		(shrine as Shrine).erect(3)
 	var treasures_tween := get_tree().create_tween()
 	treasures_tween.tween_property(%TreasuresRoot, "global_position", Vector3.UP * 0.8, 3)
 	await treasures_tween.finished
