@@ -1,6 +1,5 @@
 [gd_scene load_steps=19 format=3 uid="uid://ckru1mxpxueb2"]
 
-[ext_resource type="PackedScene" uid="uid://bngpxqvfimlib" path="res://Level/static_box_3d.tscn" id="1_7ireg"]
 [ext_resource type="Script" uid="uid://dwncffx5nujms" path="res://Level/main_level.gd" id="1_cv6sc"]
 [ext_resource type="PackedScene" uid="uid://ctxp0xi8dehf3" path="res://Player/player.tscn" id="2_1wy1g"]
 [ext_resource type="PackedScene" uid="uid://cmaynrlo5low5" path="res://Collector/clock.tscn" id="5_romof"]
@@ -20,17 +19,13 @@
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1wy1g"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_swadt"]
+size = Vector3(100, 1, 100)
+
 [node name="MainLevel" type="Node" node_paths=PackedStringArray("first_shrine", "first_item")]
 script = ExtResource("1_cv6sc")
 first_shrine = NodePath("ShrinesRoot/Shrine5")
 first_item = NodePath("FirstTreasure")
-
-[node name="StaticBox3D" parent="." instance=ExtResource("1_7ireg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-collision_layer = 0
-collision_mask = 0
-size = Vector3(100, 1, 100)
-color = Color(0.64, 0.64, 0.64, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_1wy1g")]
 unique_name_in_owner = true
@@ -61,6 +56,11 @@ collision_mask = 11
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape3D_1wy1g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_swadt")
+skeleton = NodePath("")
 
 [node name="FirstTreasure" parent="." instance=ExtResource("6_swadt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 10)
