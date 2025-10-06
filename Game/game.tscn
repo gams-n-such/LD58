@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://djewefgqwj8oy"]
+[gd_scene load_steps=8 format=3 uid="uid://djewefgqwj8oy"]
 
 [ext_resource type="Script" uid="uid://bw8btqv0c1qdv" path="res://Game/game.gd" id="1_bk3v5"]
 [ext_resource type="PackedScene" uid="uid://ckru1mxpxueb2" path="res://Level/main_level.tscn" id="2_1r4le"]
 [ext_resource type="PackedScene" uid="uid://de6kkil3ff8au" path="res://Title/title_screen.tscn" id="2_fwxkx"]
 [ext_resource type="AudioStream" uid="uid://dew14nurjjgmj" path="res://Game/ambience_cave.ogg" id="3_7raqb"]
 [ext_resource type="PackedScene" uid="uid://dy7vp70er87lg" path="res://Intro/intro.tscn" id="3_qmv3x"]
+[ext_resource type="PackedScene" uid="uid://bae1dgekfv6yv" path="res://Game/pause.tscn" id="5_oomkl"]
+[ext_resource type="PackedScene" uid="uid://d0t6no02605g0" path="res://Intro/outro.tscn" id="6_buohc"]
 
 [node name="Game" type="Node"]
 process_mode = 3
@@ -12,6 +14,8 @@ script = ExtResource("1_bk3v5")
 title_scene = ExtResource("2_fwxkx")
 intro_scene = ExtResource("3_qmv3x")
 gameplay_scene = ExtResource("2_1r4le")
+pause_scene = ExtResource("5_oomkl")
+outro_scene = ExtResource("6_buohc")
 
 [node name="MainAmbience" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

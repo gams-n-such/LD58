@@ -4,6 +4,7 @@ extends Node
 @export var intro_scene : PackedScene
 @export var gameplay_scene : PackedScene
 @export var pause_scene : PackedScene
+@export var outro_scene : PackedScene
 
 
 signal game_over(win : bool)
@@ -29,19 +30,48 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("dev_exit"):
 		exit()
 	if event.is_action_pressed("pause"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED else Input.MOUSE_MODE_CAPTURED
+		set_paused(not is_paused())
+
+#region Pause
+
+var can_pause : bool = false
+var active_pause : Node = null
+
+func is_paused() -> bool:
+	return active_pause != null
+
+func set_paused(pause : bool) -> void:
+	if pause == is_paused():
+		return
+	if pause:
+		if can_pause:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			active_pause = pause_scene.instantiate()
+			get_tree().root.add_child(active_pause)
+	else:
+		active_pause.queue_free()
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+#endregion
 
 func start_intro() -> void:
 	get_tree().change_scene_to_packed(intro_scene)
+
+func start_outro() -> void:
+	var outro := outro_scene.instantiate()
+	get_tree().root.add_child(outro)
+	await outro.finished
+	restart(true)
 
 func restart(from_title : bool = true) -> void:
 	get_tree().change_scene_to_packed(title_scene if from_title else gameplay_scene)
 
 func win() -> void:
 	game_over.emit(true)
+	start_outro()
 
 func lose() -> void:
 	game_over.emit(false)
+	restart(true)
 
 func exit() -> void:
 	get_tree().quit()

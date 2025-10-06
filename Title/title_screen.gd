@@ -9,6 +9,7 @@ extends Node
 var default_curtain_fade := 3.0
 
 func _ready() -> void:
+	Game.can_pause = false
 	Game.set_main_ambience_playing(true, 5.0)
 	await CURTAIN.fade_out(5)
 
