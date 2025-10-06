@@ -6,6 +6,7 @@ extends Node
 @export var pause_scene : PackedScene
 
 
+signal game_over(win : bool)
 signal tick(time_since_last_tick : float, time_to_next_tick : float)
 
 var player : PlayerCharacter = null
@@ -35,6 +36,12 @@ func start_intro() -> void:
 
 func restart(from_title : bool = true) -> void:
 	get_tree().change_scene_to_packed(title_scene if from_title else gameplay_scene)
+
+func win() -> void:
+	game_over.emit(true)
+
+func lose() -> void:
+	game_over.emit(false)
 
 func exit() -> void:
 	get_tree().quit()

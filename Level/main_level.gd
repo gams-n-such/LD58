@@ -20,7 +20,7 @@ func _ready() -> void:
 	treasures_tween.tween_property(%TreasuresRoot, "global_position", Vector3.UP * 0.8, 3)
 	await treasures_tween.finished
 	CLOCK.start()
-	while COLLECTOR.state_machine.current_state.name != "FinalCollectorState":
-		await COLLECTOR.state_machine.state_changed
-	await COLLECTOR.treasure_spot.item_changed
+	Game.game_over.connect(on_game_over)
+
+func on_game_over(win : bool) -> void:
 	Game.exit()
