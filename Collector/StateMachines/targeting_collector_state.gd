@@ -5,6 +5,7 @@ func _ready() -> void:
 	super._ready()
 
 func enter(prev_state : State) -> void:
+	super.enter(prev_state)
 	collector.current_target = pick_random_treasure()
 
 func exit(next_state : State) -> void:
@@ -20,11 +21,8 @@ func tick(time_since_last_tick : float, time_to_next_tick : float) -> void:
 	super.tick(time_since_last_tick, time_to_next_tick)
 	if collector.current_target:
 		request_transition("FlyingCollectorState")
-
-func get_all_treasures() -> Array[Treasure]:
-	var result : Array[Treasure]
-	result.assign(get_tree().get_nodes_in_group("Treasure"))
-	return result
+	else:
+		request_transition("FinalCollectorState")
 
 func pick_random_treasure() -> Treasure:
-	return get_all_treasures().pick_random()
+	return collector.get_remaining_treasure(false).pick_random()
