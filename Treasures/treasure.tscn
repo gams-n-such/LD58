@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnjv507p11wgi"]
+[gd_scene load_steps=6 format=3 uid="uid://bnjv507p11wgi"]
 
 [ext_resource type="Script" uid="uid://33h8oryu3urd" path="res://Treasures/treasure.gd" id="1_b6hbl"]
+[ext_resource type="Shader" uid="uid://dv52n37qernsk" path="res://Treasures/highlight_shader.tres" id="2_hhdy1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_obq82"]
-radius = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lxfyp"]
+render_priority = 0
+shader = ExtResource("2_hhdy1")
+shader_parameter/Color = Color(0.99, 1, 0.7, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_m8rra"]
+material = SubResource("ShaderMaterial_lxfyp")
+flip_faces = true
 
 [node name="Treasure" type="Area3D" groups=["Treasure"]]
 collision_layer = 24
@@ -16,3 +25,7 @@ shape = SubResource("SphereShape3D_obq82")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
+
+[node name="Glow" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+mesh = SubResource("SphereMesh_m8rra")
