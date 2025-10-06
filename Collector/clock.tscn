@@ -26,6 +26,7 @@ stream = SubResource("AudioStreamRandomizer_fbd6t")
 [node name="TickingSound" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = SubResource("AudioStreamRandomizer_pg21k")
+volume_db = -10.0
 playback_type = 2
 
 [node name="TickTimer" type="Timer" parent="."]
