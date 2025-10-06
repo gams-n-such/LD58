@@ -17,7 +17,12 @@ var current_treasure : Treasure:
 		return current_item as Treasure
 
 func _ready() -> void:
-	pass # Replace with function body.
+	_update_active()
+
+func _on_item_changed(old : Node3D, new : Node3D) -> void:
+	item_changed.emit(old, new)
+
+#region Interaction
 
 func interact(player : PlayerCharacter) -> void:
 	var old_item : Node3D = current_item
@@ -40,5 +45,20 @@ func collect_item(new_root : Node3D = null) -> void:
 	previous_item.scale = Vector3.ONE
 	_on_item_changed(previous_item, null)
 
-func _on_item_changed(old : Node3D, new : Node3D) -> void:
-	item_changed.emit(old, new)
+#endregion
+
+#region Enabled
+
+@export var active : bool:
+	get:
+		return active
+	set(new_val):
+		active = new_val
+		_update_active()
+
+func _update_active() -> void:
+	if is_inside_tree():
+		$Glow.visible = active
+		$Collision.disabled = not active
+	
+#endregion

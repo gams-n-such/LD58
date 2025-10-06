@@ -20,10 +20,31 @@ func has_item() -> bool:
 func _ready() -> void:
 	pass
 
-func destroy() -> void:
+var active : bool:
+	get:
+		return SPOT.active
+
+
+func erect() -> void:
+	if active:
+		return
+	SPOT.active = true
 	%CrumblingSFX.play()
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", position + Vector3.DOWN * 3, 5)
+	var target_pos := global_position
+	target_pos.y = 0
+	tween.tween_property(self, "global_position", target_pos, 3)
+	await tween.finished
+
+func destroy() -> void:
+	if not active:
+		return
+	SPOT.active = false
+	%CrumblingSFX.play()
+	var tween = get_tree().create_tween()
+	var target_pos := global_position
+	target_pos.y = -3
+	tween.tween_property(self, "global_position", target_pos, 3)
 	tween.tween_callback(queue_free)
 
 
