@@ -1,11 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckru1mxpxueb2"]
+[gd_scene load_steps=11 format=3 uid="uid://ckru1mxpxueb2"]
 
 [ext_resource type="PackedScene" uid="uid://bngpxqvfimlib" path="res://Level/static_box_3d.tscn" id="1_7ireg"]
+[ext_resource type="Script" uid="uid://dwncffx5nujms" path="res://Level/main_level.gd" id="1_cv6sc"]
 [ext_resource type="PackedScene" uid="uid://ctxp0xi8dehf3" path="res://Player/player.tscn" id="2_1wy1g"]
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="3_t065x"]
+[ext_resource type="Resource" uid="uid://cgcrpfrfftvph" path="res://Treasures/test_item.tres" id="4_romof"]
+[ext_resource type="PackedScene" uid="uid://cmaynrlo5low5" path="res://Collector/clock.tscn" id="5_romof"]
+[ext_resource type="PackedScene" uid="uid://nueoiniq1ast" path="res://Shrines/shrine.tscn" id="7_8vdnm"]
+[ext_resource type="PackedScene" uid="uid://bpvrkuegipfw7" path="res://Collector/collector.tscn" id="8_cv6sc"]
+[ext_resource type="Script" uid="uid://dxajxgls4k3ww" path="res://Level/grid_spacer.gd" id="9_7gvd8"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1wy1g"]
 
-[node name="MainLevel" type="Node"]
+[node name="MainLevel" type="Node" node_paths=PackedStringArray("first_shrine", "first_item")]
+script = ExtResource("1_cv6sc")
+first_shrine = NodePath("FirstShrine")
+first_item = NodePath("Treasure")
 
 [node name="StaticBox3D" parent="." instance=ExtResource("1_7ireg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -15,11 +25,27 @@ size = Vector3(100, 1, 100)
 color = Color(0.64, 0.64, 0.64, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_1wy1g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6056767, 0, 7.455784)
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06626749, 0, 7.455784)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.70524085, 0.7089678, 0, -0.7089678, 0.70524085, 0, 15.941246, 0)
-visible = false
+[node name="Clock" parent="." instance=ExtResource("5_romof")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6740005, 2.9672558, -1.687005)
+
+[node name="Collector" parent="." instance=ExtResource("8_cv6sc")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6748486, 18.197315, -6.794015)
+
+[node name="AmbientLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 16, 0)
+light_energy = 0.005
+light_indirect_energy = 0.0
+sky_mode = 1
+
+[node name="DecorationsLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 16, 0)
+light_energy = 0.005
+light_indirect_energy = 0.0
 sky_mode = 1
 
 [node name="Ground" type="StaticBody3D" parent="."]
@@ -27,3 +53,66 @@ collision_mask = 11
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape3D_1wy1g")
+
+[node name="Treasure" parent="." instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1260562, 0.3765056, -0.011005819)
+resource = ExtResource("4_romof")
+
+[node name="Treasure2" parent="." instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31283045, 0.3765056, -0.011005819)
+resource = ExtResource("4_romof")
+
+[node name="FirstShrine" parent="." instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.5199509, 0)
+
+[node name="ShrinesRoot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, -2.5, -15)
+script = ExtResource("9_7gvd8")
+grid_space = 10.0
+
+[node name="Shrine" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+
+[node name="Shrine2" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
+[node name="Shrine3" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+
+[node name="Shrine4" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+
+[node name="Shrine5" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0)
+
+[node name="Shrine6" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 10)
+
+[node name="Shrine7" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 20)
+
+[node name="Shrine8" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 30)
+
+[node name="Shrine9" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+
+[node name="Shrine10" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 10)
+
+[node name="Shrine11" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
+
+[node name="Shrine12" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 30)
+
+[node name="Shrine13" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 0)
+
+[node name="Shrine14" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 10)
+
+[node name="Shrine15" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 20)
+
+[node name="Shrine16" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 30)
