@@ -20,7 +20,7 @@ func update(delta: float) -> void:
 	set_animation_speed(player_speed)
 	if player_speed == 0:
 		request_transition("IdlePlayerState")
-	elif Input.is_action_just_pressed("jump"):
+	elif Input.is_action_just_pressed("jump") and not Player.movement_lock:
 		request_transition("JumpingPlayerState")
 	elif Input.is_action_just_released("sprint"):
 		request_transition("WalkingPlayerState")

@@ -16,7 +16,7 @@ func exit(next_state : State) -> void:
 func update(delta: float) -> void:
 	super.update(delta)
 	# TODO: disable input in debug camera mode
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and not Player.movement_lock:
 		request_transition("JumpingPlayerState")
 	elif Player.velocity.length() > 0.0 and Player.is_on_floor():
 		request_transition("WalkingPlayerState")

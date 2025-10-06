@@ -7,6 +7,11 @@ const JUMP_VELOCITY = 4.5
 
 @onready var ANIMATION_PLAYER : AnimationPlayer = %AnimationPlayer
 
+var camera_lock_x : bool = false
+var camera_lock_y : bool = false
+var movement_lock : bool = false
+
+
 func _ready() -> void:
 	Game.player = self
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -39,7 +44,7 @@ func _process_input(speed : float, acceleration : float, deceleration : float) -
 		return
 	
 	# Get the input direction and handle the movement/deceleration.
-	var input_dir := Input.get_vector("walk_left", "walk_right", "walk_forward", "walk_backward")
+	var input_dir := Input.get_vector("walk_left", "walk_right", "walk_forward", "walk_backward") if not movement_lock else Vector2.ZERO
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	if direction:
@@ -140,9 +145,9 @@ var _saved_yaw_input : float
 
 func _update_camera(delta: float) -> void:
 	_saved_yaw_input = _input_yaw
-	_mouse_rotation.x += _input_pitch * delta
+	_mouse_rotation.x += _input_pitch * delta if not camera_lock_y else 0.0
 	_mouse_rotation.x = clamp(_mouse_rotation.x, MIN_TILT, MAX_TILT)
-	_mouse_rotation.y += _input_yaw * delta
+	_mouse_rotation.y += _input_yaw * delta if not camera_lock_x else 0.0
 	
 	_player_rotation = Vector3(0, _mouse_rotation.y, 0)
 	_camera_rotation = Vector3(_mouse_rotation.x, 0, 0)
