@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcaqnf88utvur"]
+
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="1_6iwjq"]
+[ext_resource type="ArrayMesh" uid="uid://ctc7bb7o2njwe" path="res://Treasures/Assets/Brain.obj" id="2_ugebx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ugebx"]
+albedo_color = Color(1, 0.69, 0.69, 1)
+
+[node name="Treasure" instance=ExtResource("1_6iwjq")]
+rot_speed_degrees = 5.0
+
+[node name="MeshRoot" parent="." index="2"]
+transform = Transform3D(0.9999958, 0, 0, 0, 1, 0, 0, 0, 0.9999958, 0, 0, 0)
+
+[node name="Mesh" parent="MeshRoot" index="0"]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, -0.27817962, -0.11466569)
+mesh = ExtResource("2_ugebx")
+surface_material_override/0 = SubResource("StandardMaterial3D_ugebx")

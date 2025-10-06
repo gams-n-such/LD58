@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bm8eyst1jgyfr"]
+
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="1_c332n"]
+[ext_resource type="ArrayMesh" uid="uid://cdnh1q1pmvk1v" path="res://Treasures/Assets/hourglass.obj" id="2_tlo8p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_010jx"]
+albedo_color = Color(0.23539191, 0.144353, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vrxpw"]
+albedo_color = Color(0.65, 0.77833337, 1, 1)
+
+[node name="Treasure" instance=ExtResource("1_c332n")]
+
+[node name="Mesh" parent="MeshRoot" index="0"]
+transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0, -0.13413572, 0)
+mesh = ExtResource("2_tlo8p")
+surface_material_override/0 = SubResource("StandardMaterial3D_010jx")
+surface_material_override/1 = SubResource("StandardMaterial3D_vrxpw")
+surface_material_override/2 = SubResource("StandardMaterial3D_010jx")
+surface_material_override/3 = SubResource("StandardMaterial3D_010jx")
+surface_material_override/4 = SubResource("StandardMaterial3D_010jx")

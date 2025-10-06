@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwkjqbriq3v3h"]
+
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="1_n8av1"]
+[ext_resource type="ArrayMesh" uid="uid://bysjux4fdxhox" path="res://Treasures/Assets/gold.obj" id="2_jpci1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_223wo"]
+albedo_color = Color(0.8957535, 0.6867929, 3.85046e-07, 1)
+metallic = 1.0
+roughness = 0.0
+
+[node name="Treasure" instance=ExtResource("1_n8av1")]
+
+[node name="Mesh" parent="MeshRoot" index="0"]
+transform = Transform3D(0.07, 0, 0, 0, 0.07, 0, 0, 0, 0.07, 0.01685755, -0.05255258, -0.0150491595)
+mesh = ExtResource("2_jpci1")
+surface_material_override/0 = SubResource("StandardMaterial3D_223wo")
+surface_material_override/1 = SubResource("StandardMaterial3D_223wo")
+surface_material_override/2 = SubResource("StandardMaterial3D_223wo")
+surface_material_override/3 = SubResource("StandardMaterial3D_223wo")
+surface_material_override/4 = SubResource("StandardMaterial3D_223wo")
+surface_material_override/5 = SubResource("StandardMaterial3D_223wo")

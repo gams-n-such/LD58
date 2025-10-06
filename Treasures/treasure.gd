@@ -6,6 +6,9 @@ signal taken
 signal placed(new_root)
 
 @onready var MESH := %Mesh
+@onready var mesh_root: Node3D = %MeshRoot
+
+@export var rot_speed_degrees : float = 5.0
 
 @export var resource : TreasureResource:
 	get:
@@ -18,10 +21,15 @@ signal placed(new_root)
 func _ready() -> void:
 	update_visuals()
 
+func _process(delta: float) -> void:
+	if not Engine.is_editor_hint():
+		mesh_root.rotate(Vector3.UP, deg_to_rad(rot_speed_degrees) * delta)
+
 func update_visuals() -> void:
 	if not is_node_ready():
 		await ready
-	MESH.mesh = resource.mesh if resource else null
+	if resource:
+		MESH.mesh = resource.mesh
 
 func interact(player : PlayerCharacter) -> void:
 	if not player.is_holding_item():

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwcbgqjnp3aiy"]
+
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="1_77ur2"]
+[ext_resource type="ArrayMesh" uid="uid://dlth6a4y60pri" path="res://Treasures/Assets/cup.obj" id="2_cih8i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_33xf8"]
+albedo_color = Color(0.86, 0.7166667, 0, 1)
+metallic = 1.0
+roughness = 0.0
+
+[node name="Treasure" instance=ExtResource("1_77ur2")]
+
+[node name="Mesh" parent="MeshRoot" index="0"]
+mesh = ExtResource("2_cih8i")
+surface_material_override/0 = SubResource("StandardMaterial3D_33xf8")

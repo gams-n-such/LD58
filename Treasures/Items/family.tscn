@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://co78tw2spci5b"]
+
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="1_52gfx"]
+[ext_resource type="ArrayMesh" uid="uid://dqufqacud5w3r" path="res://Treasures/Assets/ring.obj" id="2_3hmvx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hmvx"]
+albedo_color = Color(0.72, 0.6066, 0.2664, 1)
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj437"]
+albedo_color = Color(0.53999996, 0.6933334, 1, 1)
+roughness = 0.0
+
+[node name="Treasure" instance=ExtResource("1_52gfx")]
+
+[node name="Mesh" parent="MeshRoot" index="0"]
+transform = Transform3D(1.2094811, -0.8872178, 0, 0.8281004, 1.1288905, 0.5383828, -0.31844187, -0.43410924, 1.4000514, 0.07182208, 0.08063504, 0.11527264)
+mesh = ExtResource("2_3hmvx")
+surface_material_override/0 = SubResource("StandardMaterial3D_3hmvx")
+surface_material_override/1 = SubResource("StandardMaterial3D_rj437")

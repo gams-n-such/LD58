@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bam40qrag35qj"]
+
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="1_3fom6"]
+[ext_resource type="ArrayMesh" uid="uid://fpe58hgeh3sw" path="res://Treasures/Assets/cot.obj" id="2_wsy51"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vxkel"]
+albedo_color = Color(0.36, 0.28800002, 0.18, 1)
+
+[node name="Treasure" instance=ExtResource("1_3fom6")]
+
+[node name="Mesh" parent="MeshRoot" index="0"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = ExtResource("2_wsy51")
+surface_material_override/0 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/1 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/2 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/3 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/4 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/5 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/6 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/7 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/8 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/9 = SubResource("StandardMaterial3D_vxkel")
+surface_material_override/10 = SubResource("StandardMaterial3D_vxkel")

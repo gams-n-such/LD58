@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://kxb8kci7gvee"]
+
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="1_lvl4a"]
+[ext_resource type="ArrayMesh" uid="uid://c4keb3jrgv5cj" path="res://Treasures/Assets/Dog.obj" id="2_jfqwu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_toytp"]
+albedo_color = Color(0.17283267, 0.17283267, 0.17283261, 1)
+
+[node name="Treasure" instance=ExtResource("1_lvl4a")]
+
+[node name="Mesh" parent="MeshRoot" index="0"]
+transform = Transform3D(0.001, 0, 0, 0, -4.371139e-11, 0.001, 0, -0.001, -4.371139e-11, -0.14959341, -0.22874504, -0.041754603)
+mesh = ExtResource("2_jfqwu")
+surface_material_override/0 = SubResource("StandardMaterial3D_toytp")

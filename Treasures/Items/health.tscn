@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://co56rap3yd3no"]
+
+[ext_resource type="PackedScene" uid="uid://bnjv507p11wgi" path="res://Treasures/treasure.tscn" id="1_32tfa"]
+[ext_resource type="ArrayMesh" uid="uid://dqa4pus41ulrb" path="res://Treasures/Assets/Heart.obj" id="2_12ivi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_phs2j"]
+albedo_color = Color(0.59, 0, 0, 1)
+roughness = 0.8
+
+[node name="Treasure" instance=ExtResource("1_32tfa")]
+
+[node name="Mesh" parent="MeshRoot" index="0"]
+transform = Transform3D(0.009587852, 0.0028136328, 0.00039569073, -0.0024710787, 0.00894463, -0.0037265737, -0.0014024518, 0.0034752055, 0.009271248, -0.06731859, -0.27009082, -0.059453115)
+mesh = ExtResource("2_12ivi")
+surface_material_override/0 = SubResource("StandardMaterial3D_phs2j")
