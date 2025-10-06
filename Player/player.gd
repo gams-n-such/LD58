@@ -6,6 +6,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
 @onready var ANIMATION_PLAYER : AnimationPlayer = %AnimationPlayer
+@onready var HUD : CanvasLayer = %HUD
 
 var camera_lock_x : bool = false
 var camera_lock_y : bool = false

@@ -6,6 +6,7 @@ extends Node
 
 func _ready() -> void:
 	#await CURTAIN.fade_out(3)
+	Game.player.HUD.visible = false
 	%IntroAnim.play("intro")
 	await %IntroAnim.animation_finished
 	await CURTAIN.fade_in(3)
@@ -15,4 +16,5 @@ func _ready() -> void:
 	get_tree().current_scene = MAIN_LEVEL
 	MAIN_LEVEL.process_mode = Node.PROCESS_MODE_INHERIT
 	await CURTAIN.fade_out(3)
+	Game.player.HUD.visible = true
 	queue_free()
