@@ -7,6 +7,7 @@ func _ready() -> void:
 func enter(prev_state : State) -> void:
 	super.enter(prev_state)
 	collector.current_target = pick_random_treasure()
+	collector.aim_spotlight.visible = true
 
 func exit(next_state : State) -> void:
 	super.exit(next_state)

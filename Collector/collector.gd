@@ -10,11 +10,15 @@ extends Node3D
 @export var height : float = 20.0
 
 var current_target : Treasure = null
+var skip_next_wait : bool = false
 
 func _ready() -> void:
 	Game.collector = self
 
 #region Utils
+
+func is_target_held() -> bool:
+	return current_target != null and current_target == get_player_held_item() 
 
 func get_player_held_item() -> Node3D:
 	if Game.player:
@@ -24,7 +28,10 @@ func get_player_held_item() -> Node3D:
 
 func get_remaining_treasure(include_player_held : bool = false) -> Array[Treasure]:
 	var result : Array[Treasure]
-	result.assign(get_tree().get_nodes_in_group("Treasure"))
+	var all_treasure := get_tree().get_nodes_in_group("Treasure")
+	for item in all_treasure:
+		if item and not item.is_queued_for_deletion():
+			result.append(item as Treasure)
 	if not include_player_held:
 		result.erase(get_player_held_item())
 	return result

@@ -2,6 +2,8 @@ extends CollectorState
 
 @export var wait_ticks : int = 5
 
+@export var teleport_radius : float = 30.0
+
 var remaining_ticks : int = 5
 
 func _ready() -> void:
@@ -9,11 +11,17 @@ func _ready() -> void:
 
 func enter(prev_state : State) -> void:
 	super.enter(prev_state)
-	collector.aim_spotlight.visible = false
-	remaining_ticks = wait_ticks
+	if collector.skip_next_wait:
+		collector.skip_next_wait = false
+		remaining_ticks = 0
+	else:
+		collector.global_position = Vector3(randf_range(-teleport_radius, teleport_radius), -20, randf_range(-teleport_radius, teleport_radius))
+		collector.aim_spotlight.visible = false
+		remaining_ticks = wait_ticks
 
 func exit(next_state : State) -> void:
 	collector.aim_spotlight.visible = true
+	collector.global_position.y = collector.height
 	super.exit(next_state)
 
 func update(delta: float) -> void:
