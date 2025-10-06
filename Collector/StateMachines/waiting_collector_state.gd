@@ -2,7 +2,7 @@ extends CollectorState
 
 
 func _ready() -> void:
-	pass
+	super._ready()
 
 func enter(prev_state : State) -> void:
 	super.enter(prev_state)

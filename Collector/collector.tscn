@@ -1,21 +1,141 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpvrkuegipfw7"]
+[gd_scene load_steps=17 format=3 uid="uid://bpvrkuegipfw7"]
 
 [ext_resource type="ArrayMesh" uid="uid://ircvhoa0odp6" path="res://Collector/hand.obj" id="1_bxu8j"]
 [ext_resource type="Script" uid="uid://dknip0ui68itx" path="res://Collector/collector.gd" id="1_dwx45"]
+[ext_resource type="Script" uid="uid://dyedsgn2vbm2o" path="res://Collector/StateMachines/collector_state_machine.gd" id="2_y6y4v"]
+[ext_resource type="Script" uid="uid://jgkbdoprrf37" path="res://Collector/StateMachines/start_delay_collector_state.gd" id="3_y6y4v"]
+[ext_resource type="Script" uid="uid://bt3dfv6l0bwgb" path="res://Collector/StateMachines/targeting_collector_state.gd" id="4_pi8xr"]
+[ext_resource type="Script" uid="uid://d16o0q0wk30y" path="res://Collector/StateMachines/flying_collector_state.gd" id="5_r3ypu"]
+[ext_resource type="Script" uid="uid://dwrwcxsbspdac" path="res://Collector/StateMachines/grabbing_collector_state.gd" id="6_5fqa1"]
+[ext_resource type="Script" uid="uid://bmiyxxp2qm6oi" path="res://Collector/StateMachines/retreating_collector_state.gd" id="7_43dt6"]
+[ext_resource type="Script" uid="uid://dwsrxfnagrrpy" path="res://Collector/StateMachines/waiting_collector_state.gd" id="8_5t68h"]
+[ext_resource type="Script" uid="uid://dlqrx1sprfd7x" path="res://Collector/StateMachines/final_collector_state.gd" id="9_08ilq"]
+[ext_resource type="PackedScene" uid="uid://b86na5f6dvcoc" path="res://Shrines/treasure_spot.tscn" id="11_pi8xr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dwx45"]
 albedo_color = Color(0.27058825, 0.07058824, 0.03137255, 1)
 
-[node name="Collector" type="Node3D"]
+[sub_resource type="Animation" id="Animation_84hyi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HandRoot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wjvjk"]
+resource_name = "final"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HandRoot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 3.1415925)]
+}
+
+[sub_resource type="Animation" id="Animation_dwx45"]
+resource_name = "hover"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HandRoot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ke4b"]
+_data = {
+&"RESET": SubResource("Animation_84hyi"),
+&"final": SubResource("Animation_wjvjk"),
+&"hover": SubResource("Animation_dwx45")
+}
+
+[node name="Collector" type="Node3D" groups=["Collector"]]
 script = ExtResource("1_dwx45")
 
+[node name="CollectorStateMachine" type="Node" parent="." node_paths=PackedStringArray("INITIAL_STATE")]
+script = ExtResource("2_y6y4v")
+INITIAL_STATE = NodePath("StartDelayCollectorState")
+metadata/_custom_type_script = "uid://cmo5n6t4g2sel"
+
+[node name="StartDelayCollectorState" type="Node" parent="CollectorStateMachine"]
+script = ExtResource("3_y6y4v")
+metadata/_custom_type_script = "uid://qjbg0guc8qlb"
+
+[node name="TargetingCollectorState" type="Node" parent="CollectorStateMachine"]
+script = ExtResource("4_pi8xr")
+metadata/_custom_type_script = "uid://qjbg0guc8qlb"
+
+[node name="FlyingCollectorState" type="Node" parent="CollectorStateMachine"]
+script = ExtResource("5_r3ypu")
+metadata/_custom_type_script = "uid://qjbg0guc8qlb"
+
+[node name="GrabbingCollectorState" type="Node" parent="CollectorStateMachine"]
+script = ExtResource("6_5fqa1")
+metadata/_custom_type_script = "uid://qjbg0guc8qlb"
+
+[node name="RetreatingCollectorState" type="Node" parent="CollectorStateMachine"]
+script = ExtResource("7_43dt6")
+metadata/_custom_type_script = "uid://qjbg0guc8qlb"
+
+[node name="WaitingCollectorState" type="Node" parent="CollectorStateMachine"]
+script = ExtResource("8_5t68h")
+metadata/_custom_type_script = "uid://qjbg0guc8qlb"
+
+[node name="FinalCollectorState" type="Node" parent="CollectorStateMachine"]
+script = ExtResource("9_08ilq")
+metadata/_custom_type_script = "uid://qjbg0guc8qlb"
+
 [node name="HandRoot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6840323, 0)
 
 [node name="HandPivot" type="Node3D" parent="HandRoot"]
-transform = Transform3D(4.9999995, -2.1855696e-07, 8.6602545, -8.6602545, -3.7855173e-07, 4.9999995, 2.1855696e-07, -10, -3.7855173e-07, 0, 0, 0)
+transform = Transform3D(-4.999999, 1.0927846e-06, -8.660254, -8.660254, -3.7855168e-07, 4.999999, 2.1855692e-07, 9.999999, 1.1356551e-06, 0, -0.33641732, 0)
 
 [node name="HandMesh" type="MeshInstance3D" parent="HandRoot/HandPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45338726, -1.69942, 0.4312694)
+layers = 8
 mesh = ExtResource("1_bxu8j")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dwx45")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="HandRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6118461, 0)
+light_color = Color(1, 0.5, 0.5, 1)
+light_cull_mask = 4294967272
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_7ke4b")
+}
+
+[node name="AimSpotlight" type="SpotLight3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0, 0, 1)
+spot_range = 21.0
+spot_attenuation = -0.5
+spot_angle = 10.0
+
+[node name="TreasureSpot" parent="." instance=ExtResource("11_pi8xr")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2849787, -0.5243988)

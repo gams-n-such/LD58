@@ -5,8 +5,9 @@ var collector : Collector = null
 
 
 func _ready() -> void:
-	await owner.ready
+	await super._ready()
 	collector = owner as Collector
+	Game.tick.connect(_on_global_tick)
 
 func _on_global_tick(time_since_last_tick : float, time_to_next_tick : float) -> void:
 	if current_state is CollectorState:
