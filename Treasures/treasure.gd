@@ -19,7 +19,7 @@ func _ready() -> void:
 func update_visuals() -> void:
 	if not is_node_ready():
 		await ready
-	MESH.mesh = resource.mesh
+	MESH.mesh = resource.mesh if resource else null
 
 func interact(player : PlayerCharacter) -> void:
 	if not player.is_holding_item():
