@@ -25,7 +25,7 @@ var active : bool:
 		return SPOT.active
 
 
-func erect() -> void:
+func erect(duration : float = 3.0) -> void:
 	if active:
 		return
 	SPOT.active = true
@@ -33,10 +33,10 @@ func erect() -> void:
 	var tween = get_tree().create_tween()
 	var target_pos := global_position
 	target_pos.y = 0
-	tween.tween_property(self, "global_position", target_pos, 3)
+	tween.tween_property(self, "global_position", target_pos, duration)
 	await tween.finished
 
-func destroy() -> void:
+func destroy(duration : float = 3.0) -> void:
 	if not active:
 		return
 	SPOT.active = false
@@ -44,7 +44,7 @@ func destroy() -> void:
 	var tween = get_tree().create_tween()
 	var target_pos := global_position
 	target_pos.y = -3
-	tween.tween_property(self, "global_position", target_pos, 3)
+	tween.tween_property(self, "global_position", target_pos, duration)
 	tween.tween_callback(queue_free)
 
 
