@@ -67,6 +67,8 @@ func _process_velocity() -> void:
 signal item_taken(new_item)
 signal item_placed(item, new_root)
 
+var interact_lock : bool = false
+
 var held_item : Node3D:
 	get:
 		if HOLD_ANCHOR.get_child_count() > 0:
@@ -86,6 +88,8 @@ func find_interaction_target() -> Node3D:
 	return null
 
 func interact() -> void:
+	if interact_lock:
+		return
 	var target := find_interaction_target()
 	if target and target.has_method("interact"):
 		target.interact(self)
