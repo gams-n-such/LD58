@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ckru1mxpxueb2"]
+[gd_scene load_steps=12 format=3 uid="uid://ckru1mxpxueb2"]
 
 [ext_resource type="PackedScene" uid="uid://bngpxqvfimlib" path="res://Level/static_box_3d.tscn" id="1_7ireg"]
 [ext_resource type="Script" uid="uid://dwncffx5nujms" path="res://Level/main_level.gd" id="1_cv6sc"]
@@ -9,13 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://nueoiniq1ast" path="res://Shrines/shrine.tscn" id="7_8vdnm"]
 [ext_resource type="PackedScene" uid="uid://bpvrkuegipfw7" path="res://Collector/collector.tscn" id="8_cv6sc"]
 [ext_resource type="Script" uid="uid://dxajxgls4k3ww" path="res://Level/grid_spacer.gd" id="9_7gvd8"]
+[ext_resource type="Script" uid="uid://c186jbe1xkv6j" path="res://Level/circle_spacer.gd" id="10_m5tu5"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1wy1g"]
 
 [node name="MainLevel" type="Node" node_paths=PackedStringArray("first_shrine", "first_item")]
 script = ExtResource("1_cv6sc")
 first_shrine = NodePath("FirstShrine")
-first_item = NodePath("Treasure")
+first_item = NodePath("FirstTreasure")
 
 [node name="StaticBox3D" parent="." instance=ExtResource("1_7ireg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -26,7 +27,7 @@ color = Color(0.64, 0.64, 0.64, 1)
 
 [node name="Player" parent="." instance=ExtResource("2_1wy1g")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06626749, 0, 7.455784)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
 
 [node name="Clock" parent="." instance=ExtResource("5_romof")]
 unique_name_in_owner = true
@@ -54,12 +55,8 @@ collision_mask = 11
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape3D_1wy1g")
 
-[node name="Treasure" parent="." instance=ExtResource("3_t065x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1260562, 0.3765056, -0.011005819)
-resource = ExtResource("4_romof")
-
-[node name="Treasure2" parent="." instance=ExtResource("3_t065x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31283045, 0.3765056, -0.011005819)
+[node name="FirstTreasure" parent="." instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023329258, 0.3765056, 3.7870073)
 resource = ExtResource("4_romof")
 
 [node name="FirstShrine" parent="." instance=ExtResource("7_8vdnm")]
@@ -116,3 +113,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 20)
 
 [node name="Shrine16" parent="ShrinesRoot" instance=ExtResource("7_8vdnm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 30)
+
+[node name="TreasuresRoot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(0.9396926, 0, 0.34202012, 0, 1, 0, -0.34202012, 0, 0.9396926, 0, -0.8, 0)
+script = ExtResource("10_m5tu5")
+radius = 30.0
+
+[node name="Treasure" parent="TreasuresRoot" instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
+resource = ExtResource("4_romof")
+
+[node name="Treasure2" parent="TreasuresRoot" instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.213203, 0, -21.213203)
+resource = ExtResource("4_romof")
+
+[node name="Treasure3" parent="TreasuresRoot" instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, 0)
+resource = ExtResource("4_romof")
+
+[node name="Treasure4" parent="TreasuresRoot" instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.213203, 0, 21.213203)
+resource = ExtResource("4_romof")
+
+[node name="Treasure5" parent="TreasuresRoot" instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+resource = ExtResource("4_romof")
+
+[node name="Treasure6" parent="TreasuresRoot" instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.213203, 0, 21.213203)
+resource = ExtResource("4_romof")
+
+[node name="Treasure7" parent="TreasuresRoot" instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, 0)
+resource = ExtResource("4_romof")
+
+[node name="Treasure8" parent="TreasuresRoot" instance=ExtResource("3_t065x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.213203, 0, -21.213203)
+resource = ExtResource("4_romof")
