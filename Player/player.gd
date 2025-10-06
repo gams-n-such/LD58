@@ -59,6 +59,9 @@ func _process_velocity() -> void:
 
 @onready var HOLD_ANCHOR: Node3D = %HoldAnchor
 
+signal item_taken(new_item)
+signal item_placed(item, new_root)
+
 var held_item : Node3D:
 	get:
 		if HOLD_ANCHOR.get_child_count() > 0:
@@ -97,6 +100,7 @@ func hold_item(item : Node3D) -> void:
 	item.scale = Vector3.ONE
 	if item is Treasure:
 		item.process_mode = Node.PROCESS_MODE_DISABLED
+	item_taken.emit(item)
 
 func place_item(new_root : Node3D = null) -> Node3D:
 	assert(is_holding_item())
@@ -107,8 +111,10 @@ func place_item(new_root : Node3D = null) -> Node3D:
 		previously_held.reparent(get_tree().root, true)
 	previously_held.rotation = Vector3.ZERO
 	previously_held.scale = Vector3.ONE
+	item_placed.emit(previously_held, previously_held.get_parent_node_3d())
 	if previously_held is Treasure:
 		previously_held.process_mode = Node.PROCESS_MODE_INHERIT
+		(previously_held as Treasure).place()
 	return previously_held
 
 #endregion
