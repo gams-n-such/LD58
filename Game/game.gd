@@ -71,18 +71,3 @@ func set_main_ambience_playing(play : bool, fade_time : float = 1.0) -> void:
 		MAIN_AMBIENCE.playing = false
 
 #endregion
-
-#region Utils
-
-func get_player_held_item() -> Node3D:
-	if player:
-		return player.held_item
-	else:
-		return null
-
-func get_remaining_treasures() -> Array[Treasure]:
-	var result : Array[Treasure]
-	result.assign(get_tree().get_nodes_in_group("Treasure"))
-	return result
-	
-#endregion
