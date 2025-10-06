@@ -1,6 +1,7 @@
 extends CollectorState
 
-@export var max_speed : float = 5.0
+@export var starting_speed : float = 5.0
+@export var speed_per_tick : float = 0.05
 @export var rectilinear_movement : bool = true
 
 func _ready() -> void:
@@ -50,6 +51,7 @@ func get_next_position() -> Vector3:
 	var delta_to_target := target_location - collector_location
 	var horizontal_delta := delta_to_target
 	horizontal_delta.y = 0.0
+	var speed := get_speed()
 	var result := collector_location
 	if rectilinear_movement:
 		var pick_x : bool = randi_range(0, 1)
@@ -58,14 +60,17 @@ func get_next_position() -> Vector3:
 		elif not pick_x and horizontal_delta.z < 0.1:
 			pick_x = true
 		var axis_delta := Vector3(horizontal_delta.x, 0.0, 0.0) if pick_x else Vector3(0.0, 0.0, horizontal_delta.z)
-		axis_delta.x = clampf(horizontal_delta.x, -max_speed, max_speed)
-		axis_delta.z = clampf(horizontal_delta.z, -max_speed, max_speed)
+		axis_delta.x = clampf(horizontal_delta.x, -speed, speed)
+		axis_delta.z = clampf(horizontal_delta.z, -speed, speed)
 		result = collector_location + axis_delta
 	else:
 		var distance := horizontal_delta.length()
-		if distance < max_speed:
+		if distance < speed:
 			result = collector_location + horizontal_delta
 		else:
 			var direction := horizontal_delta.normalized()
-			result = collector_location + direction * max_speed
+			result = collector_location + direction * speed
 	return result
+
+func get_speed() -> float:
+	return starting_speed + speed_per_tick * Game.clock.num_ticks
