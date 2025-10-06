@@ -24,3 +24,6 @@ func update_visuals() -> void:
 func interact(player : PlayerCharacter) -> void:
 	if not player.is_holding_item():
 		player.hold_item(self)
+
+func set_collision_enabled(enable : bool) -> void:
+	%Collision.disabled = not enable
